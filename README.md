@@ -15,14 +15,7 @@ Video Tutorial: https://www.youtube.com/watch?v=-42K44A1oMA&t=4s
 - **Frontend CRUD:** The frontend of the project provides a user interface for performing CRUD operations on books. You can add new books, view existing books, edit book details, and delete books.
 - **Frontend Router:** React Router is used to create client-side routing, allowing seamless navigation between different pages of the frontend application.
 
-## Screenshots
 
-![Home](image.png)
-![Card View](image-1.png)
-![Create Book](image-2.png)
-![Show Book](image-3.png)
-![Edit Book](image-4.png)
-![Delete Book](image-5.png)
 
 
 ## Getting Started
@@ -77,10 +70,9 @@ npm run dev
 
 If you have any questions, feedback, or would like to connect, feel free to reach out to me.
 
-- **Name:** Yusufhan Saçak
-- **Email:** yusufhan.sacak@bahcesehir.edu.tr
-- **Website:** https://medium.com/@yusufhansacak
-- **Twitter:** [@0xSCK](https://twitter.com/0xSCK)
-- **LinkedIn:** [Yusufhan Saçak](https://www.linkedin.com/in/yusufhansacak/)
+- **Name:** Dhrumil Patel
+- **Email:** dhrumilpatel819@gmail.com
+
+
 
 Feel free to contact me through any of the channels above. I'm open to collaborations and discussions related to Flutter development or any other projects.
