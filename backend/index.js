@@ -1,40 +1,42 @@
-import express, { request, response } from "express";
-import { PORT, mongoDBURL } from "./config.js";
+import express from "express";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { Book } from "./models/bookModel.js";
-import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
+import booksRoute from "./routes/booksRoute.js";
+
+dotenv.config(); // Load environment variables from .env
 
 const app = express();
 
-// Middleware for parsing request body
-app.use(express.json());
+// Middleware
+app.use(express.json()); // Ensure JSON body parsing
+app.use(cors()); // Enable CORS
 
-// Middleware for handling CORS POLICY
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: "https://localhost:3000",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//   })
-// );
+// Environment variables
+const PORT = process.env.PORT || 5000;
+const mongoDBURL = process.env.MONGODB_URI;
 
-app.get("/", (request, response) => {
-  console.log(request);
-  return response.status(234).send("Welcome to MERN Stack Book Shop");
+if (!mongoDBURL) {
+  console.error(" Error: MongoDB URI is missing. Set MONGODB_URI in .env");
+  process.exit(1);
+}
+
+// Routes
+app.get("/", (req, res) => {
+  return res.status(200).send("Welcome to MERN Stack Book Shop");
 });
 
 app.use("/books", booksRoute);
 
+// Connect to MongoDB and start server
 mongoose
-  .connect(mongoDBURL)
+  .connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("App connected to db");
+    console.log("Connected to MongoDB");
     app.listen(PORT, () => {
-      console.log(`App listening on port ${PORT}!`);
+      console.log(` Server running on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error(" MongoDB Connection Error:", error);
   });

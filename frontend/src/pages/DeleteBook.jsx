@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
@@ -11,32 +10,47 @@ const DeleteBook = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
+
   const handleDeleteBook = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/books/${id}`)
+      .delete(`http://localhost:5000/books/${id}`)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Deleted Successfully", { variant: "success" });
+        enqueueSnackbar("✅ Book Deleted Successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        // alert("An error happened, Please check console!");
-        enqueueSnackbar("Error", { variant: "error" });
-        console.log(error);
+        enqueueSnackbar(`❌ Error: ${error.response?.data?.message || "Something went wrong"}`, { variant: "error" });
+        console.error("Delete Error:", error);
       });
   };
+
   return (
-    <div className="p-4">
+    <div className="p-6 min-h-screen flex flex-col items-center bg-gradient-to-br from-red-100 to-red-300">
       <BackButton />
-      <h1 className="text-3xl my-4">Delete Book</h1>
-      {loading ? <Spinner /> : ""}
-      <div className="flex flex-col items-center border-2 border-sky-400 rounded-xl w-[600px] p-8 mx-auto">
-        <h3 className="text-2xl">Are you sure?</h3>
-        <button className="p-4 bg-red-600" onClick={handleDeleteBook}>
-          Yes
-        </button>
+      <h1 className="text-4xl font-semibold my-6 text-red-800">Delete Book</h1>
+      {loading && <Spinner />}
+
+      <div className="flex flex-col items-center border-2 border-red-500 bg-white shadow-lg rounded-2xl w-full max-w-lg p-8">
+        <h3 className="text-2xl font-medium text-red-700 mb-6 text-center">
+          Are you sure you want to delete this book?
+        </h3>
+        <div className="flex gap-6">
+          <button
+            className="px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg shadow-md hover:opacity-90 transition-all"
+            onClick={handleDeleteBook}
+          >
+            Yes, Delete
+          </button>
+          <button
+            className="px-6 py-3 text-lg font-semibold text-gray-800 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 transition-all"
+            onClick={() => navigate("/")}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
