@@ -70,7 +70,7 @@ npm run dev
 If you have any questions, feedback, or would like to connect, feel free to reach out to me.
 
 - **Name:** Dhrumil Patel
-- **Email:** dhrumilpatel819@gmail.com
+- **Email:** pateldhrumil819@gmail.com
 
 
 
